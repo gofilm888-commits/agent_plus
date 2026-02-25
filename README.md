@@ -1,6 +1,6 @@
 # HelloAgents 增强版
 
-基于 [hello-agents](https://github.com/hello-agents/hello-agents) 的增强项目，主要增加了 **Skills（技能）** 和 **Middleware（中间件）** 能力。
+基于 [hello-agents](https://github.com/jjyaoao/helloagents) 的增强项目，主要增加了 **Skills（技能）** 和 **Middleware（中间件）** 能力。
 
 ## 特性概览
 
