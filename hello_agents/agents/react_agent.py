@@ -57,7 +57,8 @@ class ReActAgent(Agent):
         system_prompt: Optional[str] = None,
         config: Optional[Config] = None,
         max_steps: int = 5,
-        custom_prompt: Optional[str] = None
+        custom_prompt: Optional[str] = None，
+        middleware: Optional[AgentMiddleware] = None
     ):
         """
         初始化ReActAgent
@@ -71,7 +72,7 @@ class ReActAgent(Agent):
             max_steps: 最大执行步数
             custom_prompt: 自定义提示词模板
         """
-        super().__init__(name, llm, system_prompt, config)
+        super().__init__(name, llm, system_prompt, config, middleware)
 
         # 如果没有提供tool_registry，创建一个空的
         if tool_registry is None:
@@ -144,7 +145,9 @@ class ReActAgent(Agent):
                 question=input_text,
                 history=history_str
             )
-            
+            middleware_input = self.middleware.execute_before(prompt, **kwargs)
+            if middleware_input is not None:
+                prompt = middleware_input
             # 调用LLM
             messages = [{"role": "user", "content": prompt}]
             response_text = self.llm.invoke(messages, **kwargs)

@@ -2,6 +2,8 @@
 
 from abc import ABC, abstractmethod
 from typing import Optional
+
+from . import AgentMiddleware
 from .message import Message
 from .llm import HelloAgentsLLM
 from .config import Config
@@ -14,13 +16,15 @@ class Agent(ABC):
         name: str,
         llm: HelloAgentsLLM,
         system_prompt: Optional[str] = None,
-        config: Optional[Config] = None
+        config: Optional[Config] = None,
+        middleware: Optional[AgentMiddleware] = None  # 新增
     ):
         self.name = name
         self.llm = llm
         self.system_prompt = system_prompt
         self.config = config or Config()
         self._history: list[Message] = []
+        self.middleware = middleware  # 新增
     
     @abstractmethod
     def run(self, input_text: str, **kwargs) -> str:

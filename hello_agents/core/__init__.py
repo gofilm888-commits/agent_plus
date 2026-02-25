@@ -11,5 +11,6 @@ __all__ = [
     "HelloAgentsLLM", 
     "Message",
     "Config",
-    "HelloAgentsException"
+    "HelloAgentsException",
+    "AgentMiddleware"
 ]
